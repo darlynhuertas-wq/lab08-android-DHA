@@ -28,4 +28,7 @@ interface TaskDao {
     // Eliminar todas las tareas
     @Query("DELETE FROM tasks")
     suspend fun deleteAllTasks()
+
+    @Query("SELECT COUNT(*) FROM tasks WHERE is_completed = 0")
+    suspend fun countPending(): Int
 }
