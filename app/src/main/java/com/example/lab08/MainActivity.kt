@@ -13,6 +13,9 @@ import androidx.compose.ui.unit.dp
 import androidx.room.Room
 import kotlinx.coroutines.launch
 import com.example.lab08.ui.theme.Lab08Theme
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +30,11 @@ class MainActivity : ComponentActivity() {
                 ).build()
 
                 val taskDao = db.taskDao()
-                val viewModel = TaskViewModel(taskDao)
+                val viewModel: TaskViewModel = viewModel(
+                    factory = viewModelFactory {
+                        initializer { TaskViewModel(taskDao) }
+                    }
+                )
 
                 TaskScreen(viewModel)
             }
